@@ -10,9 +10,10 @@ import Image from "next/image";
 import useLike from "@/hooks/useLike";
 interface CommentItemProps {
   data: Record<string, any>;
+  username: string
 }
 
-const CommentItem: React.FC<CommentItemProps> = ({ data = {} }) => {
+const CommentItem: React.FC<CommentItemProps> = ({ data = {}, username }) => {
   const router = useRouter();
   const loginModal = useLoginModal();
   const [hasLiked, setHasLiked] = useState(data.liked);
@@ -21,9 +22,9 @@ const CommentItem: React.FC<CommentItemProps> = ({ data = {} }) => {
   const goToUser = useCallback(
     (ev: any) => {
       ev.stopPropagation();
-      router.push(`/users/${data.username}`);
+      router.push(`/users/${username}`);
     },
-    [router, data.username]
+    [router, username]
   );
 
   const onLike = useCallback(
@@ -57,7 +58,7 @@ const CommentItem: React.FC<CommentItemProps> = ({ data = {} }) => {
     >
       <div className="flex flex-row items-start gap-3">
         <div className="w-12 h-12">
-          <Avatar username={data.username} />
+          <Avatar username={username} />
         </div>
         <div>
           <div className="flex flex-row items-center gap-2">

@@ -18,10 +18,10 @@ const UserBio: React.FC<UserBioProps> = ({ username }) => {
   const [isFollowing, setIsFollowing] = useState(
     fetchedUser?.isFollow ?? false
   );
-  
-   useEffect(() => {
-     setIsFollowing(fetchedUser?.isFollow ?? false);
-   }, [fetchedUser]);
+
+  useEffect(() => {
+    setIsFollowing(fetchedUser?.isFollow ?? false);
+  }, [fetchedUser]);
 
   const editModal = useEditModal();
 
@@ -30,6 +30,11 @@ const UserBio: React.FC<UserBioProps> = ({ username }) => {
       const url = `http://localhost:8000/user/${username}?followStatus=${!isFollowing}`;
       await fetcherPatch(url);
       setIsFollowing(!isFollowing);
+      if (isFollowing) {
+        fetchedUser.totalFollower -= 1;
+      } else {
+        fetchedUser.totalFollower += 1;
+      }
       toast.success(isFollowing ? "Unfollowed" : "Followed");
     } catch (error) {
       toast.error("Something went wrong");

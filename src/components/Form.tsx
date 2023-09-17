@@ -70,6 +70,7 @@ const Form: React.FC<FormProps> = ({ placeholder, isComment, postId }) => {
       setBody("");
       setFiles([]);
       mutatePost();
+      window.location.reload()
     } catch (error) {
       toast.error("Something went wrong");
     } finally {

@@ -55,7 +55,7 @@ const CommentFeed: React.FC<CommentFeedProps> = ({ postId }) => {
   return (
     <>
       {comments.map((comment: Record<string, any>) => (
-        <CommentItem key={comment.id} data={comment} />
+        <CommentItem key={comment.id} data={comment} username={comment.username}/>
       ))}
       {isLoading && <div>Loading more comments...</div>}
       <div id="load-more-trigger" style={{ height: "10px" }}></div>
